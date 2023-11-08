@@ -16,14 +16,13 @@ public class FuzzTask implements Callable<Void> {
     this.sootClass = sootClass;
   }
 
-
   @Override
   public Void call() {
     // to identify the logs
     Thread.currentThread().setName(toString());
     for (var method : sootClass.getMethods()) {
       var start = System.currentTimeMillis();
-      logger.debug("start");
+      logger.debug("start {}", method.getSignature().getSubSignature());
       if (method.hasBody()) {
         method.getBody().getStmts();
       }
